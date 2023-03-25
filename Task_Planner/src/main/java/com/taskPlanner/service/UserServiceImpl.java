@@ -29,28 +29,4 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	@Override
-	public User getUser(String emailId) throws UserException {
-		return userRepository.findById(emailId)
-				.orElseThrow(() -> new UserException("User not found witn emailId " + emailId));
-	}
-
-	@Override
-	public User updateUser(User user) throws UserException {
-		User registeredUser = userRepository.findById(user.getEmailId())
-				.orElseThrow(() -> new UserException("User not found witn emailId " + user.getEmailId()));
-		registeredUser.setName(user.getName());
-		registeredUser.setRole(user.getRole());
-		registeredUser.getSprints().addAll(user.getSprints());
-		return userRepository.save(registeredUser);
-	}
-
-	@Override
-	public User deleteUser(String emailId) throws UserException {
-		User user = userRepository.findById(emailId)
-				.orElseThrow(() -> new UserException("User not found witn emailId " + emailId));
-		userRepository.delete(user);
-		return user;
-	}
-
 }
